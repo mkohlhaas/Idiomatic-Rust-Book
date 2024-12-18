@@ -5,5 +5,5 @@ use proc_macro::TokenStream;
 
 #[proc_macro]
 pub fn say_hello_world(_item: TokenStream) -> TokenStream {
-    "println!(\"hello world\")".parse().unwrap()
+  "println!(\"hello world\")".parse().unwrap()
 }

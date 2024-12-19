@@ -24,20 +24,17 @@ fn what_type_of_integer_is_this(value: i32) {
 }
 
 fn destructure_tuple(tuple: &(i32, i32, i32)) {
-  match tuple {
-    (first, ..) => println!("First tuple element is {first}"),
-  }
-  match tuple {
-    (.., last) => println!("Last tuple element is {last}"),
-  }
-  match tuple {
-    (_, middle, _) => println!("The middle tuple element is {middle}"),
-  }
-  match tuple {
-    (first, middle, last) => {
-      println!("The whole tuple is ({first}, {middle}, {last})")
-    }
-  }
+  let (first, ..) = tuple;
+  println!("First tuple element is {first}");
+
+  let (_, middle, _) = tuple;
+  println!("The middle tuple element is {middle}");
+
+  let (.., last) = tuple;
+  println!("Last tuple element is {last}");
+
+  let (first, middle, last) = tuple;
+  println!("The whole tuple is ({first}, {middle}, {last})")
 }
 
 fn match_with_guard(value: i32, choose_first: bool) {
@@ -60,7 +57,8 @@ fn match_with_guard(value: i32, choose_first: bool) {
 
 fn unreachable_pattern_match(value: i32) {
   match value {
-    1 => println!("First match: This value is equal to 1"),
+    // clippy: some ranges overlap
+    // 1 => println!("First match: This value is equal to 1"),
     1 => println!("Second match: This value is equal to 1"),
     _ => println!("This value is not equal to 1"),
   }
@@ -80,9 +78,10 @@ enum DistinctTypes {
 }
 
 fn match_enum_types(enum_types: &DistinctTypes) {
+  use DistinctTypes::*;
   match enum_types {
-    DistinctTypes::Name(name) => println!("name={name}"),
-    DistinctTypes::Count(count) => println!("count={count}"),
+    Name(name) => println!("name={name}"),
+    Count(count) => println!("count={count}"),
   }
 }
 
@@ -107,7 +106,7 @@ fn match_on_black_cats(cat: &Cat) {
       name,
       color: CatColor::Black,
     } => println!("This is a black cat named {name}"),
-    Cat { name, color: _ } => println!("{name} is not a black cat"),
+    Cat { name, color } => println!("{name} is not a black cat"),
   }
 }
 
@@ -125,7 +124,7 @@ impl From<std::io::Error> for ErrorWrapper {
   fn from(source: std::io::Error) -> Self {
     Self {
       source: ErrorTypes::IoError(source),
-      message: "there was an IO error!".into(),
+      message: "There was an IO error!".into(),
     }
   }
 }
@@ -141,7 +140,7 @@ fn write_to_file() -> Result<(), ErrorWrapper> {
 
 fn try_to_write_to_file() {
   match write_to_file() {
-    Ok(()) => println!("Write succeeded"),
+    Ok(()) => println!("Write succeeded!"),
     Err(err) => println!("Write failed: {}", err.message),
   }
 }
@@ -156,7 +155,7 @@ fn write_to_file_without_result() {
       Err(err) => {
         println!("There was an error writing: {}", err)
       }
-      _ => println!("Write succeeded"),
+      _ => println!("Write succeeded!"),
     },
     Err(err) => {
       println!("There was an error opening the file: {}", err)
@@ -186,9 +185,10 @@ fn main() {
   unreachable_pattern_match(1);
   unreachable_pattern_match(10);
 
-  match_enum_types(&DistinctTypes::Name("Alice".into()));
-  match_enum_types(&DistinctTypes::Name("Bob".into()));
-  match_enum_types(&DistinctTypes::Count(10_000));
+  use DistinctTypes::*;
+  match_enum_types(&Name("Alice".into()));
+  match_enum_types(&Name("Bob".into()));
+  match_enum_types(&Count(10_000));
 
   let black_cat = Cat {
     name: String::from("Henry"),

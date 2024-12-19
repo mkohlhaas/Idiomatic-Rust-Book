@@ -31,6 +31,7 @@ fn main() {
   let container = Container {
     name: "Henry".into(),
   };
+
   get_name_from_first(&container);
   get_name_from_second(&container);
 }

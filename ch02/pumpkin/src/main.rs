@@ -1,7 +1,5 @@
 #![allow(dead_code, unused)]
 
-use std::fmt::Debug;
-
 #[derive(Clone, Debug)]
 struct Pumpkin {
   mass: f64,
@@ -22,7 +20,8 @@ fn main() {
     mass: 50.,
     diameter: 75.,
   };
-  println!("Big pumpkin: {:?}", big_pumpkin);
-  println!("Cloned big pumpkin: {:?}", big_pumpkin.clone());
-  println!("Default pumpkin: {:?}", Pumpkin::default());
+
+  println!("Big pumpkin: {:#?}", big_pumpkin);
+  println!("Cloned big pumpkin: {:#?}", big_pumpkin.clone());
+  println!("Default pumpkin: {:#?}", Pumpkin::default());
 }

@@ -23,8 +23,11 @@ fn main() {
     adder(left_value, right_value)
   );
 
-  let consumable = String::from("cookie");
-  let consumer = move || consumable;
-  consumer();
-  // consumer(); error!
+  let consumable = String::from("  cookie  ");
+  let consumer = || consumable.trim();
+  println!("{}", consumer());
+  println!("{}", consumer());
+  // let consumer = || consumable;
+  // println!("{}", consumer());
+  // println!("{}", consumer());
 }

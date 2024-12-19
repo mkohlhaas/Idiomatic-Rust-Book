@@ -6,7 +6,10 @@ fn reverse(s: String) -> String {
   String::from_iter(v.iter())
 }
 
-fn reverse_and_uppercase(s: String) -> (String, String) {
+type Reversed = String;
+type ReverseUppercased = String;
+
+fn reverse_and_uppercase(s: String) -> (Reversed, ReverseUppercased) {
   let mut v = Vec::from_iter(s.chars());
   v.reverse();
   let reversed = String::from_iter(v.iter());

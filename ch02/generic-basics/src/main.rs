@@ -1,7 +1,6 @@
 #![allow(dead_code, unused)]
 
-use std::marker::PhantomData;
-
+#[derive(Debug)]
 struct Container<T> {
   value: T,
 }
@@ -28,15 +27,19 @@ struct ListNode<T> {
   next: NextNode<T>,
 }
 
+/////////////////////////////////////////////////////////////////////////////////
+
+use std::marker::PhantomData;
+
 struct Dog<Breed> {
   name: String,
   breed: PhantomData<Breed>,
 }
 
-struct Labrador {}
-struct Retriever {}
-struct Poodle {}
-struct Dachshund {}
+struct Labrador;
+struct Retriever;
+struct Poodle;
+struct Dachshund;
 
 impl Dog<Labrador> {
   fn breed_name(&self) -> &str {
@@ -59,17 +62,24 @@ impl Dog<Dachshund> {
   }
 }
 
+// Main ///////////////////////////////////////////////////////////////////////////
+
 fn main() {
   let str_container = Container { value: "&str" };
+
   println!("{}", str_container.value);
+
   let ambiguous_container: Container<Option<String>> = Container { value: None };
   let alt_ambiguous_container: Container<Option<String>> = Container::new(None);
   let short_alt_ambiguous_container = Container::<Option<String>>::new(None);
+
+  /////////////////////////////////////
 
   let my_poodle: Dog<Poodle> = Dog {
     name: "Jeffrey".into(),
     breed: PhantomData,
   };
+
   println!(
     "My dog is a {}, named {}",
     my_poodle.breed_name(),

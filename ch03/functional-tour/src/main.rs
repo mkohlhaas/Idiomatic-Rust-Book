@@ -24,7 +24,7 @@ fn main() {
   println!("successses={:?}", successes);
   println!("failures={:?}", failures);
 
-  let popular_dog_breeds = vec![
+  let popular_dog_breeds = [
     "Labrador",
     "French Bulldog",
     "Golden Retriever",
@@ -38,11 +38,12 @@ fn main() {
   ];
 
   let ranked_breeds: Vec<_> = popular_dog_breeds
-    .into_iter()
+    .iter()
     .enumerate()
     .map(|(idx, breed)| (idx + 1, breed))
     .rev()
     .collect();
 
   println!("{:?}", ranked_breeds);
+  println!("{:?}", popular_dog_breeds);
 }

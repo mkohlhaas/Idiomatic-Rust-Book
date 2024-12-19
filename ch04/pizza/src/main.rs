@@ -29,10 +29,10 @@ impl Pizza {
 
 fn main() {
   let pizza = Pizza::new(vec![
-    String::from("tomato sauce"),
-    String::from("mushrooms"),
-    String::from("mozzarella"),
-    String::from("pepperoni"),
+    "tomato sauce".into(),
+    "mushrooms".into(),
+    "mozzarella".into(),
+    "pepperoni".into(),
   ]);
   println!("pizza={:#?}", pizza);
 }
